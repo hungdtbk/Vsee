@@ -14,7 +14,7 @@ import io.realm.Realm;
  */
 
 public class MainMvpModel {
-    public static void getDataFromServer(final ApiListener<Boolean> listener) {
+    public static void updateDataFromServer(final ApiListener<Boolean> listener) {
         ApiHelper.getInstance().getListArticles(new ApiListener<ArticlesWrapper>() {
             @Override
             public void onSuccess(final ArticlesWrapper result) {
@@ -26,7 +26,7 @@ public class MainMvpModel {
                         realm.copyToRealm(result.getArticles());
                     }
                 });
-                if(listener != null) {
+                if (listener != null) {
                     listener.onSuccess(true);
                 }
             }
@@ -35,6 +35,16 @@ public class MainMvpModel {
             public void onFailure(String errorMessage) {
                 super.onFailure(errorMessage);
                 listener.onFailure(errorMessage);
+            }
+        });
+    }
+
+    public static void deleteLocalData() {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(@NonNull Realm realm) {
+                realm.where(Article.class).findAll().deleteAllFromRealm();
             }
         });
     }

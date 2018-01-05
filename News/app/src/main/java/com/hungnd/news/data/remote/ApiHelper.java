@@ -27,7 +27,7 @@ public class ApiHelper extends BaseApiHelper {
     }
 
     public Call getListArticles(ApiListener<ArticlesWrapper> listener) {
-        Call<ArticlesWrapper> call = mApiService.getListArticles(Constants.DEFAULT_TOPIC, Constants.API_KEY);
+        Call<ArticlesWrapper> call = mApiService.getListArticles(Constants.Configs.DEFAULT_TOPIC, Constants.Configs.API_KEY);
         enqueueCall(call, listener);
         return call;
     }
