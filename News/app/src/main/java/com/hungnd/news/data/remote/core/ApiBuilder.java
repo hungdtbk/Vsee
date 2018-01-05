@@ -22,7 +22,7 @@ public class ApiBuilder {
                     .setLenient()
                     .create();
             mRetrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.BASE_URL)
+                    .baseUrl(Constants.Configs.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }
